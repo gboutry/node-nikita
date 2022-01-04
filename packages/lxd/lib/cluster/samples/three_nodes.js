@@ -168,7 +168,7 @@ nikita.log.cli({
 curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
 bash n lts`,
       trap: true,
-      code_skipped: 42
+      code: [0, 42]
     }));
   }
 });

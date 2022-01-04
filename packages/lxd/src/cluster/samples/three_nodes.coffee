@@ -97,7 +97,7 @@ nikita
       bash n lts
       """
       trap: true
-      code_skipped: 42
+      code: [0, 42]
     # @lxc.file.push
     #   debug: true
     #   header: 'Test configuration'
