@@ -29,18 +29,24 @@ describe 'actions.execute.config.env', ->
     , ->
       {stdout} = await @execute
         command: 'env'
-        env: 'LANG': 'tv'
+        env:
+          # Required By NixOS to locate the `env` command
+          'PATH': process.env['PATH']
+          'LANG': 'tv'
       stdout.split('\n').includes('LANG=tv').should.be.true()
 
   they 'from parent', ({ssh}) ->
     nikita
       $ssh: ssh
-      $env: 'LANG': 'tv'
+      $env:
+        # Required By NixOS to locate the `env` command
+        'PATH': process.env['PATH']
+        'LANG': 'tv'
     , ->
       {stdout} = await @execute
         command: 'env'
       stdout.split('\n').includes('LANG=tv').should.be.true()
-  
+
   they 'process.env only in local', ({ssh}) ->
     nikita
       $ssh: ssh
@@ -52,4 +58,3 @@ describe 'actions.execute.config.env', ->
         stdout.split('\n').includes('NIKITA_EXECUTE_ENV=1').should.be.true()
       else # But not in remote mode
         stdout.split('\n').includes('NIKITA_EXECUTE_ENV=1').should.be.false()
-  
